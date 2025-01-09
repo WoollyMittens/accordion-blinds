@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Accordion Blinds</title>
+	<meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --transition-curve: cubic-bezier(0.445, 0.050, 0.550, 0.950);
+            --expand-time: 0.3s;
+            --reveal-time: 0.1s;
+        }
+        html {
+            font-family: Montserrat, sans-serif;
+            font-size: 16px;
+        }
+        body {
+            background-color: #000000;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        #fai-blinds {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr;
+            margin: 0 auto;
+            padding: 0;
+            width: 100vw;
+            max-width: 100rem;
+            min-height: 50rem;
+            transition-property: grid-template-columns;
+            transition-timing-function: var(--transition-curve);
+            transition-duration: var(--expand-time);
+            &:has(.blind:nth-child(1) input:checked) { grid-template-columns: 5fr 1fr 1fr 1fr 1fr 1fr; }
+            &:has(.blind:nth-child(2) input:checked) { grid-template-columns: 1fr 5fr 1fr 1fr 1fr 1fr; }
+            &:has(.blind:nth-child(3) input:checked) { grid-template-columns: 1fr 1fr 5fr 1fr 1fr 1fr; }
+            &:has(.blind:nth-child(4) input:checked) { grid-template-columns: 1fr 1fr 1fr 5fr 1fr 1fr; }
+            &:has(.blind:nth-child(5) input:checked) { grid-template-columns: 1fr 1fr 1fr 1fr 5fr 1fr; }
+            &:has(.blind:nth-child(6) input:checked) { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 5fr; }
+            .blind {
+                display: flex;
+                overflow: hidden;
+                background-color: #808080;
+                position: relative;
+                label {
+                    display: block;
+                    margin: 90px calc(50% - 2.2rem);
+                    position: relative;
+                    z-index: 3;
+                    transition-property: margin;
+                    transition-timing-function: ease-in-out;
+                    transition-duration: var(--expand-time);
+                    flex: 1 1 100%;
+                }
+                input[type="radio"] {
+                    position: absolute;
+                    opacity: 0;
+                }
+                h2 {
+                    display: flex;
+                    white-space: nowrap;
+                    font-size: 6rem;
+                    font-weight: 700;
+                    line-height: 1;
+                    margin: 0 0 2rem;
+                    text-shadow: 0px 0px 60px rgba(0, 0, 0, 0.55), 0px 0px 14px rgba(0, 0, 0, 0.1);
+                    span {
+                        display: block;
+                        opacity: 0;
+                        transition-property: opacity;
+                        transition-timing-function: ease-in-out;
+                        transition-duration: var(--reveal-time);
+                    }
+                    span:nth-child(1) {
+                        opacity: 1;
+                    }
+                    span:nth-child(2) { transition-delay: calc(var(--reveal-time) * 1); }
+                    span:nth-child(3) { transition-delay: calc(var(--reveal-time) * 2); }
+                    span:nth-child(4) { transition-delay: calc(var(--reveal-time) * 3); }
+                    span:nth-child(5) { transition-delay: calc(var(--reveal-time) * 4); }
+                    span:nth-child(6) { transition-delay: calc(var(--reveal-time) * 5); }
+                    span:nth-child(7) { transition-delay: calc(var(--reveal-time) * 6); }
+                    span:nth-child(8) { transition-delay: calc(var(--reveal-time) * 7); }
+                    span:nth-child(9) { transition-delay: calc(var(--reveal-time) * 8); }
+                    span:nth-child(10) { transition-delay: calc(var(--reveal-time) * 9); }
+                    span:nth-child(11) { transition-delay: calc(var(--reveal-time) * 10); }
+                    span:nth-child(12) { transition-delay: calc(var(--reveal-time) * 11); }
+                }
+                p {
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                    line-height: 1.5;
+                    margin: 0;
+                    max-width: 29rem;
+                    opacity: 0;
+                    transition-property: opacity;
+                    transition-timing-function: ease-in-out;
+                    transition-duration: var(--expand-time);
+                    transition-delay: 0;
+                }
+                img {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: 50% 50%;
+                    z-index: 1;
+                }
+                &:before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 2;
+                    opacity: 0;
+                    transition-property: opacity;
+                    transition-timing-function: ease-in-out;
+                    transition-duration: var(--expand-time);
+                }
+            }
+            .blind:has(input:checked) {
+                label {
+                   margin: 90px 90px;
+                }
+                h2 {
+                    span {
+                        opacity: 1;
+                    }
+                }
+                p {
+                    opacity: 1;
+                    transition-duration: var(--expand-time);
+                    transition-delay: var(--reveal-time);
+                }
+                &:before {
+                    opacity: 1;
+                }
+                &:has(h2 span:nth-child(2)) p { transition-delay: calc(var(--reveal-time) * 2); }
+                &:has(h2 span:nth-child(3)) p { transition-delay: calc(var(--reveal-time) * 3); }
+                &:has(h2 span:nth-child(4)) p { transition-delay: calc(var(--reveal-time) * 4); }
+                &:has(h2 span:nth-child(5)) p { transition-delay: calc(var(--reveal-time) * 5); }
+                &:has(h2 span:nth-child(6)) p { transition-delay: calc(var(--reveal-time) * 6); }
+                &:has(h2 span:nth-child(7)) p { transition-delay: calc(var(--reveal-time) * 7); }
+                &:has(h2 span:nth-child(8)) p { transition-delay: calc(var(--reveal-time) * 8); }
+                &:has(h2 span:nth-child(9)) p { transition-delay: calc(var(--reveal-time) * 9); }
+                &:has(h2 span:nth-child(10)) p { transition-delay: calc(var(--reveal-time) * 10); }
+                &:has(h2 span:nth-child(11)) p { transition-delay: calc(var(--reveal-time) * 11); }
+                &:has(h2 span:nth-child(12)) p { transition-delay: calc(var(--reveal-time) * 12); }
+            }
+            .blind:nth-child(1):before {
+                background: linear-gradient(312.43deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.9) 100%), linear-gradient(360deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.6) 100%);
+            }
+            .blind:nth-child(2):before {
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%), linear-gradient(312.58deg, rgba(0, 0, 0, 0) 40.83%, rgba(0, 0, 0, 0.6) 63.81%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <figure id="fai-blinds">
+        <div class="blind">
+            <label>
+                <input type="radio" name="blind" value="1"/>
+                <h2>
+                    <span>B</span>
+                    <span>o</span>
+                    <span>l</span>
+                    <span>d</span>
+                </h2>
+                <p>
+                    We dare to imagine new ways  of doing things and we have  the courage to jump into action.
+                </p>
+            </label>
+            <img alt="" src="b-bg.jpg"/>
+        </div>
+        <div class="blind">
+            <label>
+                <input type="radio" name="blind" value="2"/>
+                <h2>
+                    <span>R</span>
+                    <span>i</span>
+                    <span>g</span>
+                    <span>o</span>
+                    <span>r</span>
+                    <span>o</span>
+                    <span>u</span>
+                    <span>s</span>
+                </h2>
+                <p>
+                    We believe in the utmost rigour and we avoid shortcuts to maintain the highest quality standards. 
+                </p>
+            </label>
+            <img alt="" src="r1-bg.jpg"/>
+        </div>
+        <div class="blind">
+            <label>
+                <input type="radio" name="blind" value="3"/>
+                <h2>
+                    <span>A</span>
+                    <span>l</span>
+                    <span>o</span>
+                    <span>r</span>
+                    <span>e</span>
+                    <span>m</span>
+                </h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </label>
+            <img alt="" src="a-bg.jpg"/>
+        </div>
+        <div class="blind">
+            <label>
+                <input type="radio" name="blind" value="4"/>
+                <h2>
+                    <span>V</span>
+                    <span>l</span>
+                    <span>o</span>
+                    <span>r</span>
+                    <span>e</span>
+                    <span>m</span>
+                </h2>
+                <p>
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+            </label>
+            <img alt="" src="v-bg.jpg"/>
+        </div>
+        <div class="blind">
+            <label>
+                <input type="radio" name="blind" value="5"/>
+                <h2>
+                    <span>E</span>
+                    <span>l</span>
+                    <span>o</span>
+                    <span>r</span>
+                    <span>e</span>
+                    <span>m</span>
+                </h2>
+                <p>
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+            </label>
+            <img alt="" src="e-bg.jpg"/>
+        </div>
+        <div class="blind">
+            <label>
+                <input type="radio" name="blind" value="6"/>
+                <h2>
+                    <span>R</span>
+                    <span>l</span>
+                    <span>o</span>
+                    <span>r</span>
+                    <span>e</span>
+                    <span>m</span>
+                </h2>
+                <p>
+                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </label>
+            <img alt="" src="r2-bg.jpg"/>
+        </div>
+    </figure>
+
+    <script>
+        console.log('Hello World');
+    </script>
+</body>
+
+</html>
